@@ -22,7 +22,7 @@ public class GameModel {
     private int incorrectCount;
     private int correctCount;
     private LocalDateTime dateTime;
-    private int gameScore;
+    private GameScore gameScore;
     private int[] lettersUsed;
     
     
@@ -31,6 +31,8 @@ public class GameModel {
     private Scanner scan;
     private String randomWord;
     private char[] randomWordCharArray;
+    
+    private int score;
     
     
    
@@ -41,7 +43,6 @@ public class GameModel {
         randomWordCharArray = randomWord.toCharArray();
         incorrectCount = 0;
         correctCount = 0;
-        gameScore = 100;
         
     }
     
@@ -52,7 +53,6 @@ public class GameModel {
         randomWordCharArray = randomWord.toCharArray();
         incorrectCount = 0;
         correctCount = 0;
-        gameScore = 100;
     }
 
     //setDateTime
@@ -73,8 +73,7 @@ public class GameModel {
             }
         }
         if(positions.size() == 0){
-            incorrectCount++;
-            gameScore -= 10;
+            incorrectCount++;            
         } else {
             correctCount += positions.size();
         }
@@ -92,13 +91,19 @@ public class GameModel {
     //setScore
     //purpose: sets score value to points
     public void setScore(int score) {
-        this.gameScore = score;
+        this.score = score;
     }
     
     //getScore
     //purpose: returns current score value
     public int getScore() {
-        return gameScore;
+    	try {
+			score = gameScore.calculateScore(correctCount, incorrectCount);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			score = 0;
+		}
+        return score;
     }
 
     //name: selectRandomWord()
@@ -123,13 +128,13 @@ public class GameModel {
 
     //method: getGameScore
     //purpose: return current score
-    public int getGameScore() {
+    public GameScore getGameScore() {
         return gameScore;
     }
 
     //method: setGameScore
     //purpose: set current game score
-    public void setGameScore(int gameScore) {
+    public void setGameScore(GameScore gameScore) {
         this.gameScore = gameScore;
     }
     

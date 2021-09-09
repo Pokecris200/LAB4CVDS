@@ -10,11 +10,16 @@ public class PowerScore implements GameScore {
 	 * @param correctCount Cantidad de letras acertadas
 	 * @param incorrectCount Cantidad de letras erradas
 	 * @return el score actual
+	 * @throws Exception 
 	 */
 	@Override
-	public int calculateScore(int correctCount, int incorrectCount) {
+	public int calculateScore(int correctCount, int incorrectCount) throws Exception {
 		// TODO Auto-generated method stub
 		int result = powerScore - (8 * incorrectCount);
+		
+		if (incorrectCount < 0 || correctCount < 0) {
+			throw new Exception("Numero de entrada invalido");
+		}
 		
 		for (int i=1; i <= correctCount; i++) {
 			
